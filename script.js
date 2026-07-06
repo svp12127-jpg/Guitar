@@ -8,7 +8,6 @@ startBtn.addEventListener('click', async () => {
   analyser.fftSize = 2048;
   const bufferLength = analyser.fftSize;
   const dataArray = new Float32Array(bufferLength);
-  status.style.display = "none";
 
   function update() {
     analyser.getFloatTimeDomainData(dataArray);

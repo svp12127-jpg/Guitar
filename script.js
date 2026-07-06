@@ -1,4 +1,5 @@
 startBtn.addEventListener('click', async () => {
+  const noteDisplay = document.getElementById('noteDisplay');
   const stream = await navigator.mediaDevices.getUserMedia({audio: true});
   const audiocontext = new AudioContext();
   const source = audiocontext.createMediaStreamSource(stream);
@@ -58,6 +59,6 @@ startBtn.addEventListener('click', async () => {
       const noteNames=["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
       const round=Math.round(semitonesfromA4);
       let noteIndex= ((round % 12) + 12) % 12;
-      console.log(noteNames[noteIndex]);
+      noteDisplay.textContent = noteNames[noteIndex];
     }
 });

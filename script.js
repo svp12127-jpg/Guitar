@@ -21,6 +21,17 @@ startBtn.addEventListener('click', async () => {
     let bestOffset = -1;
     let bestCorrelation = 0;
 
+    let sumOfSquares = 0;
+    for (let i = 0; i < SIZE; i++) {
+      sumOfSquares += buffer[i] * buffer[i];
+    }
+
+    const rms = Math.sqrt(sumOfSquares / SIZE);
+
+    // skip everything if it's basically silence — avoids garbage matches on near-zero audio
+    if (rms < 0.01) {
+      return -1;}
+
   // for each possible lag/offset, calculate a correlation score
   for (let offset = 96; offset < 800; offset++) {
     let correlation = 0;
@@ -29,6 +40,7 @@ startBtn.addEventListener('click', async () => {
       correlation += buffer[i] * buffer[i + offset];
     }
     correlation = correlation / (SIZE - offset);
+    correlation = correlation / (rms * rms); // normalize to 0-1 scale
     if (correlation>bestCorrelation){
       bestCorrelation=correlation;
       bestOffset=offset;

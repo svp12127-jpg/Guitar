@@ -15,6 +15,25 @@ body {
   padding: 40px 50px;
   text-align: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.tuner-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 4px,
+    #C89B3C 4px,
+    #C89B3C 5px
+  );
+  opacity: 0.5;
 }
 
 h1 {
@@ -67,4 +86,13 @@ button:focus-visible {
   margin: 0;
   letter-spacing: 2px;
   text-shadow: 0 0 20px rgba(74, 124, 89, 0.5);
+}
+
+.gauge {
+  margin-bottom: -10px;
+}
+
+#needle {
+  transform-origin: 100px 100px;
+  transition: transform 0.15s ease;
 }

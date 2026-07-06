@@ -11,7 +11,13 @@
 
     <button id="startBtn">Start Mic</button>
     <div class="display-panel">
+      <svg class="gauge" viewBox="0 0 200 110" width="200" height="110">
+        <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#5A3E28" stroke-width="3"/>
+        <line id="needle" x1="100" y1="100" x2="100" y2="30" stroke="#4A7C59" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="100" cy="100" r="5" fill="#C89B3C"/>
+      </svg>
       <h2 id="noteDisplay">--</h2>
+
     </div>
   </div>
   <script src="script.js"></script>

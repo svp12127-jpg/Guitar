@@ -11,6 +11,8 @@ startBtn.addEventListener('click', async () => {
 
   function update() {
     analyser.getFloatTimeDomainData(dataArray);
+    const frequency = autoCorrelate(dataArray, audiocontext.sampleRate);
+    console.log(frequency);
     requestAnimationFrame(update);
     }
   update();
@@ -20,13 +22,13 @@ startBtn.addEventListener('click', async () => {
     let bestCorrelation = 0;
 
   // for each possible lag/offset, calculate a correlation score
-  for (let offset = 0; offset < SIZE / 2; offset++) {
+  for (let offset = 96; offset < 800; offset++) {
     let correlation = 0;
 
     for (let i = 0; i < SIZE - offset; i++) {
       correlation += buffer[i] * buffer[i + offset];
     }
-
+    correlation = correlation / (SIZE - offset);
     if (correlation>bestCorrelation){
       bestCorrelation=correlation;
       bestOffset=offset;
@@ -37,5 +39,10 @@ startBtn.addEventListener('click', async () => {
 
   const frequency = sampleRate / bestOffset;
   return frequency;
+
+  function frequencytonode(frequency){
+    const semitonesfromA4=12*(Math.log2(frequency/440));
+    console.log("raw:", semitonesFromA4, "rounded:", Math.round(semitonesFromA4))
+  }
 }
 });

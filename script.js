@@ -12,7 +12,7 @@ startBtn.addEventListener('click', async () => {
   function update() {
     analyser.getFloatTimeDomainData(dataArray);
     const frequency = autoCorrelate(dataArray, audiocontext.sampleRate);
-    console.log(frequency);
+    frequencytonote(frequency);
     requestAnimationFrame(update);
     }
   update();
@@ -36,13 +36,16 @@ startBtn.addEventListener('click', async () => {
   }
 
   if (bestOffset === -1) return -1; // no clear pitch found
-
+  if (bestCorrelation < 0.9) return -1;  // add this line — reject weak/unclear matches
   const frequency = sampleRate / bestOffset;
   return frequency;
-
-  function frequencytonode(frequency){
-    const semitonesfromA4=12*(Math.log2(frequency/440));
-    console.log("raw:", semitonesFromA4, "rounded:", Math.round(semitonesFromA4))
-  }
 }
+  function frequencytonote(frequency){
+      if (frequency === -1) return;
+      const semitonesfromA4=12*(Math.log2(frequency/440));
+      const noteNames=["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
+      const round=Math.round(semitonesfromA4);
+      let noteIndex= ((round % 12) + 12) % 12;
+      console.log(noteNames[noteIndex]);
+    }
 });

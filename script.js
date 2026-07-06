@@ -28,9 +28,8 @@ startBtn.addEventListener('click', async () => {
     }
 
     const rms = Math.sqrt(sumOfSquares / SIZE);
-
     // skip everything if it's basically silence — avoids garbage matches on near-zero audio
-    if (rms < 0.01) {
+    if (rms < 0.003) {
       return -1;}
 
   // for each possible lag/offset, calculate a correlation score
@@ -49,11 +48,12 @@ startBtn.addEventListener('click', async () => {
   }
 
   if (bestOffset === -1) return -1; // no clear pitch found
-  if (bestCorrelation < 0.9) return -1;  // add this line — reject weak/unclear matches
+  if (bestCorrelation < 0.5) return -1;  // add this line — reject weak/unclear matches
   const frequency = sampleRate / bestOffset;
   return frequency;
 }
   function frequencytonote(frequency){
+    console.log("frequency received:", frequency);
       if (frequency === -1) return;
       const semitonesfromA4=12*(Math.log2(frequency/440));
       const noteNames=["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];

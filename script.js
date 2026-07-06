@@ -1,5 +1,6 @@
 startBtn.addEventListener('click', async () => {
   const noteDisplay = document.getElementById('noteDisplay');
+  const needle = document.getElementById('needle');
   const stream = await navigator.mediaDevices.getUserMedia({audio: true});
   const audiocontext = new AudioContext();
   const source = audiocontext.createMediaStreamSource(stream);
@@ -57,6 +58,9 @@ startBtn.addEventListener('click', async () => {
       const semitonesfromA4=12*(Math.log2(frequency/440));
       const noteNames=["A","A#","B","C","C#","D","D#","E","F","F#","G","G#"];
       const round=Math.round(semitonesfromA4);
+      const cents = (semitonesfromA4 - round) * 100;
+      const angle = Math.max(-45, Math.min(45, cents));
+      needle.style.transform = `rotate(${angle}deg)`;
       let noteIndex= ((round % 12) + 12) % 12;
       noteDisplay.textContent = noteNames[noteIndex];
     }

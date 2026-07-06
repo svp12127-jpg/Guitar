@@ -14,4 +14,28 @@ startBtn.addEventListener('click', async () => {
     requestAnimationFrame(update);
     }
   update();
+  function autoCorrelate(buffer, sampleRate) {
+    const SIZE = buffer.length;
+    let bestOffset = -1;
+    let bestCorrelation = 0;
+
+  // for each possible lag/offset, calculate a correlation score
+  for (let offset = 0; offset < SIZE / 2; offset++) {
+    let correlation = 0;
+
+    for (let i = 0; i < SIZE - offset; i++) {
+      correlation += buffer[i] * buffer[i + offset];
+    }
+
+    if (correlation>bestCorrelation){
+      bestCorrelation=correlation;
+      bestOffset=offset;
+    }
+  }
+
+  if (bestOffset === -1) return -1; // no clear pitch found
+
+  const frequency = sampleRate / bestOffset;
+  return frequency;
+}
 });

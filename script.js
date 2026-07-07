@@ -32,23 +32,35 @@ startBtn.addEventListener('click', async () => {
     if (rms < 0.003) {
       return -1;}
 
-  // for each possible lag/offset, calculate a correlation score
+  let correlations = [];
+
   for (let offset = 96; offset < 800; offset++) {
     let correlation = 0;
-
     for (let i = 0; i < SIZE - offset; i++) {
       correlation += buffer[i] * buffer[i + offset];
     }
     correlation = correlation / (SIZE - offset);
-    correlation = correlation / (rms * rms); // normalize to 0-1 scale
-    if (correlation>bestCorrelation){
-      bestCorrelation=correlation;
-      bestOffset=offset;
+    correlation = correlation / (rms * rms);
+    correlations.push({ offset, correlation });
+
+    if (correlation > bestCorrelation) {
+      bestCorrelation = correlation;
+      bestOffset = offset;
     }
   }
 
-  if (bestOffset === -1) return -1; // no clear pitch found
-  if (bestCorrelation < 0.5) return -1;  // add this line — reject weak/unclear matches
+  if (bestOffset === -1) return -1;
+  if (bestCorrelation < 0.5) return -1;
+
+  // look for a smaller offset that's almost as good — likely the true fundamental
+  const threshold = bestCorrelation * 0.9;
+  for (let entry of correlations) {
+    if (entry.correlation >= threshold) {
+      bestOffset = entry.offset;
+      break; // first one found is the smallest, since we're scanning in increasing order
+    }
+  }
+
   const frequency = sampleRate / bestOffset;
   return frequency;
 }

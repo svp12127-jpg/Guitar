@@ -14,6 +14,9 @@ startBtn.addEventListener('click', async () => {
     analyser.getFloatTimeDomainData(dataArray);
     const frequency = autoCorrelate(dataArray, audiocontext.sampleRate);
     frequencytonote(frequency);
+    const freqData = new Float32Array(analyser.frequencyBinCount);
+    analyser.getFloatFrequencyData(freqData);
+    console.log(freqData);
     requestAnimationFrame(update);
     }
   update();

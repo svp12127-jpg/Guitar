@@ -213,18 +213,27 @@ button:focus-visible {
 }
 
 .page-nav {
-  margin-bottom: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  margin-bottom: 0;
 }
 
 .page-nav a {
-  color: #D4A94C;
+  display: inline-block;
+  background: linear-gradient(160deg, #5C4A38 0%, #4A3220 100%);
+  color: #EDE4D3;
   font-size: 13px;
+  font-weight: 600;
   text-decoration: none;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s ease;
+  padding: 9px 18px;
+  border: 1px solid #D4A94C;
+  border-radius: 6px;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .page-nav a:hover {
-  border-bottom-color: #D4A94C;
+  background: linear-gradient(160deg, #6B5A47 0%, #5C4A38 100%);
+  transform: translateY(-1px);
 }

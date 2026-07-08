@@ -5,7 +5,8 @@ const chordOutput = document.getElementById('chordOutput');
 function parseChordChart(text) {
   const matches = text.match(/\[([^\]]+)\]/g);
   const cleaned = matches.map(match => match.replace('[', '').replace(']', ''));
-  return cleaned;
+  const filtered = cleaned.filter(chord => "ABCDEFG".includes(chord[0]));
+  return filtered;
 }
 
 parseBtn.addEventListener('click', () => {

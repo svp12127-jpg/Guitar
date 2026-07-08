@@ -7,14 +7,17 @@
 </head>
 <body>
 
-  <h1>Chord Chart Parser</h1>
+  <div class="parser-card">
+    <h1>Chord Chart Parser</h1>
 
-  <textarea id="chartInput" rows="10" cols="50" placeholder="Paste your chord chart here..."></textarea>
-  <br>
-  <button id="parseBtn">Parse Chords</button>
+    <textarea id="chartInput" rows="8" placeholder="Paste your chord chart here..."></textarea>
+    <button id="parseBtn">Parse Chords</button>
 
-  <h2>Chords found:</h2>
-  <p id="chordOutput">--</p>
+    <div class="chord-output">
+      <h2>Chords Found</h2>
+      <p id="chordOutput">--</p>
+    </div>
+  </div>
 
   <script src="parser.js"></script>
 </body>

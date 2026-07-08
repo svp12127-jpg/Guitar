@@ -211,3 +211,20 @@ button:focus-visible {
   word-wrap: break-word;
   text-shadow: 0 0 20px rgba(111, 187, 146, 0.4);
 }
+
+.page-nav {
+  margin-bottom: 20px;
+}
+
+.page-nav a {
+  color: #D4A94C;
+  font-size: 13px;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.page-nav a:hover {
+  border-bottom-color: #D4A94C;
+}

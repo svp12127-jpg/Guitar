@@ -1,3 +1,4 @@
+const startBtn = document.getElementById('startBtn');
 startBtn.addEventListener('click', async () => {
   const noteDisplay = document.getElementById('noteDisplay');
   const needle = document.getElementById('needle');
